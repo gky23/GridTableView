@@ -17,3 +17,5 @@ Through custom UITableViewCell, row shows four pictures, click on the image can 
 
 通过自定义UITableViewCell ,一行显示四个图片，点击图片可以直接进好友信息。
 
+@RealMario6
+
