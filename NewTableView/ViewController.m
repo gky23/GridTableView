@@ -68,9 +68,7 @@
                       [imageDataArray removeObjectAtIndex:0];
                 }
               
-//                [imageDataArray removeObjectAtIndex:1];
-//                [imageDataArray removeObjectAtIndex:2];
-//                [imageDataArray removeObjectAtIndex:3];
+
 
             }
 
