@@ -12,5 +12,6 @@
 {
     UITableView *gkyTableView;
     NSMutableArray *imageDataArray;
+    NSMutableArray * cellArray;
 }
 @end

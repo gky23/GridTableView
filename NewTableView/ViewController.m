@@ -38,21 +38,48 @@
     [imageDataArray addObject:@"http://t10.baidu.com/it/u=4230965145,4102532603&fm=59"];
     [imageDataArray addObject:@"http://t10.baidu.com/it/u=865484007,281730044&fm=59"];
     [imageDataArray addObject:@"http://www.sucai.com/pic/201262/2012621122561.jpg"];
-//    [imageDataArray addObject:@"http://www.sucai.com/pic/201291/2012911621481.jpg"];
+    [imageDataArray addObject:@"http://www.sucai.com/pic/201291/2012911621481.jpg"];
 
-    
+     cellArray =[NSMutableArray array];
     int dataCount =[imageDataArray count];
     
     if (dataCount>4) {
         
-        if (dataCount%4>0) {
+        int cellTotal =dataCount/4;
+               
+        if (dataCount%4>0) {        //不能被整除
+
             
         }
         else{
-        
+        //能被整除
+            for (int i=0; i<cellTotal; i++) {
+                NSMutableArray *tempArray =[NSMutableArray array];
+                [tempArray addObject:[imageDataArray objectAtIndex:0]];
+                [tempArray addObject:[imageDataArray objectAtIndex:1]];
+                [tempArray addObject:[imageDataArray objectAtIndex:2]];
+                [tempArray addObject:[imageDataArray objectAtIndex:3]];
+                
+                [cellArray addObject:tempArray];
+                
+                [tempArray removeAllObjects];
+                
+                for (int y=0; y<4; y++) {
+                      [imageDataArray removeObjectAtIndex:0];
+                }
+              
+//                [imageDataArray removeObjectAtIndex:1];
+//                [imageDataArray removeObjectAtIndex:2];
+//                [imageDataArray removeObjectAtIndex:3];
+
+            }
+
+            
         }
         
     }
+    
+    NSLog(@"cellArray count :%d",[cellArray count]);
     
     NSLog(@"求模 %d",dataCount %4);
 }
