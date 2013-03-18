@@ -9,9 +9,10 @@
 #import "ViewController.h"
 #import "NearUsersTableViewCell.h"
 
-@interface ViewController ()
 
-@end
+
+
+#define   GridCount 3
 
 @implementation ViewController
 
@@ -23,6 +24,7 @@
     }
     return self;
 }
+
 
 -(void)initData{
     imageDataArray =[[NSMutableArray alloc] init];
@@ -38,48 +40,91 @@
     [imageDataArray addObject:@"http://t10.baidu.com/it/u=4230965145,4102532603&fm=59"];
     [imageDataArray addObject:@"http://t10.baidu.com/it/u=865484007,281730044&fm=59"];
     [imageDataArray addObject:@"http://www.sucai.com/pic/201262/2012621122561.jpg"];
-    [imageDataArray addObject:@"http://www.sucai.com/pic/201291/2012911621481.jpg"];
+//    [imageDataArray addObject:@"http://www.sucai.com/pic/201291/2012911621481.jpg"];
 
      cellArray =[NSMutableArray array];
+    
+    [self handleData];
+   }
+
+-(void)handleData{
     int dataCount =[imageDataArray count];
     
-    if (dataCount>4) {
+    if (dataCount>GridCount) {
         
-        int cellTotal =dataCount/4;
-               
-        if (dataCount%4>0) {        //不能被整除
+        int cellTotal =dataCount/GridCount;
+        
+        int mo =dataCount%GridCount;
+        
+        NSLog(@"cellArray count :%d",[cellArray count]);
+        NSLog(@"求模 %d",mo);
+        
+        if (mo>0) {        //不能被整除
+            //如果不能被整除，则会多出一组数据，需要多循环一次添加到数组里
+            for (int i=0; i<cellTotal+1; i++) {
+                
+                if (i==cellTotal) {//未被整除剩余的部分单独处理
+                    NSMutableArray *tempArray =[[NSMutableArray alloc] init];
+                    for (int y=0; y<mo; y++) {
+                        [tempArray addObject:[imageDataArray objectAtIndex:y]];
+                    }
+                    [cellArray addObject:[tempArray retain]];
+                    [tempArray release];
+                }
+                else{
+                    NSMutableArray *tempArray =[[NSMutableArray alloc] init];
+                    [tempArray addObject:[imageDataArray objectAtIndex:0]];
+                    [tempArray addObject:[imageDataArray objectAtIndex:1]];
+                    [tempArray addObject:[imageDataArray objectAtIndex:2]];
+//                    [tempArray addObject:[imageDataArray objectAtIndex:3]];
+                    
+                    [cellArray addObject:[tempArray retain]];
+                    [tempArray release];
 
+                    for (int y=0; y<GridCount; y++) {
+                        [imageDataArray removeObjectAtIndex:0];
+                    }
+
+                    
+//                    NSString *type =@"";
+//                    if ([type hasPrefix:@"推送"]) {
+//                        
+//                    }
+//                    else if( [type isEqualToString:@"消息"]){
+//                    
+//                    }
+
+                }
+               
+            }
             
         }
         else{
-        //能被整除
+            //能被整除
             for (int i=0; i<cellTotal; i++) {
-                NSMutableArray *tempArray =[NSMutableArray array];
+                NSMutableArray *tempArray =[[NSMutableArray alloc] init];
                 [tempArray addObject:[imageDataArray objectAtIndex:0]];
                 [tempArray addObject:[imageDataArray objectAtIndex:1]];
                 [tempArray addObject:[imageDataArray objectAtIndex:2]];
-                [tempArray addObject:[imageDataArray objectAtIndex:3]];
+//                [tempArray addObject:[imageDataArray objectAtIndex:3]];
                 
-                [cellArray addObject:tempArray];
+                [cellArray addObject:[tempArray retain]];
+                [tempArray release];
                 
-                [tempArray removeAllObjects];
-                
-                for (int y=0; y<4; y++) {
-                      [imageDataArray removeObjectAtIndex:0];
+                for (int y=0; y<GridCount; y++) {
+                    [imageDataArray removeObjectAtIndex:0];
                 }
-              
-
-
+                               
             }
-
             
         }
         
     }
     
-    NSLog(@"cellArray count :%d",[cellArray count]);
-    
-    NSLog(@"求模 %d",dataCount %4);
+    for (int a=0;a<[cellArray count]; a++) {
+        NSLog(@"array %d ,content: %@",a,[[cellArray objectAtIndex:a] description]);
+    }
+
 }
 
 
@@ -96,17 +141,16 @@
     gkyTableView.dataSource=self;
     [self.view addSubview:gkyTableView];
     
-//    [self handleData];
     
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 75+4;
+    return 105;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return [cellArray count];
 }
 
 
@@ -114,16 +158,38 @@
 //    int row = indexPath.row;
     static NSString *identifier = @"NearUsersCellIdentifier";
     
-    NearUsersTableViewCell *cell = (NearUsersTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NearUsersTableViewCell"
-                                                     owner:nil options:nil];
-        for (id oneObject in nib) {
-            if ([oneObject isKindOfClass:[NearUsersTableViewCell class]]) {
-                cell = (NearUsersTableViewCell *)oneObject;
-                break;
-            }
-        }
+//    NearUsersTableViewCell *cell = (NearUsersTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+//    if (cell == nil) {
+//        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NearUsersTableViewCell"
+//                                                     owner:nil options:nil];
+//        for (id oneObject in nib) {
+//            if ([oneObject isKindOfClass:[NearUsersTableViewCell class]]) {
+//                cell = (NearUsersTableViewCell *)oneObject;
+//                break;
+//            }
+//        }
+//    }
+    
+    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:identifier];
+    if(cell==nil){
+        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+    }
+    
+  
+    NSArray *readyArray =[cellArray objectAtIndex:indexPath.row];
+    
+    for (int i=0; i<[readyArray count]; i++) {
+        UIButton * button =[[UIButton alloc] init];
+        button.frame=CGRectMake(5+5*i+100*i, 5, 100, 100);
+        
+        NSURL * url =[[NSURL alloc] initWithString:@"http://www.sucai.com/pic/201262/2012621122561.jpg"];
+        NSData* data = [[NSData alloc] initWithContentsOfURL:url];
+        [button setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+//        [button setBackgroundImage:[UIImage imageNamed:@"2.jpg"] forState:UIControlStateNormal];
+        [cell.contentView addSubview:button ];
+        [data release];
+        [url release];
+        [button release];
     }
     
     return cell;

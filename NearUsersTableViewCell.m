@@ -13,12 +13,23 @@
 @end
 
 @implementation NearUsersTableViewCell
+@synthesize image1,image2,image3;
+@synthesize dataCellArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
     }
     return self;
 }
