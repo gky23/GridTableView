@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC1BBB2816F9532D00E3A3BF /* new_back_Btn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1BBB2616F9532D00E3A3BF /* new_back_Btn.png */; };
+		AC1BBB2916F9532D00E3A3BF /* Top_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1BBB2716F9532D00E3A3BF /* Top_Bg.png */; };
+		AC1BBB3B16FA981500E3A3BF /* NearUserListStyleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1BBB3A16FA981400E3A3BF /* NearUserListStyleTableView.m */; };
+		AC1BBB3D16FA994F00E3A3BF /* NearUsersGridStyleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1BBB3C16FA994F00E3A3BF /* NearUsersGridStyleTableView.m */; };
+		AC20B8EE16F8021600B20359 /* NearUsersTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC20B8EC16F8021600B20359 /* NearUsersTopView.m */; };
+		AC20B8EF16F8021600B20359 /* NearUsersTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC20B8ED16F8021600B20359 /* NearUsersTopView.xib */; };
 		ACF3CBB616F2AF8100763DD7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF3CBB516F2AF8100763DD7 /* UIKit.framework */; };
 		ACF3CBB816F2AF8100763DD7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF3CBB716F2AF8100763DD7 /* Foundation.framework */; };
 		ACF3CBBA16F2AF8100763DD7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF3CBB916F2AF8100763DD7 /* CoreGraphics.framework */; };
@@ -25,6 +31,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC1BBB2616F9532D00E3A3BF /* new_back_Btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_back_Btn.png; sourceTree = "<group>"; };
+		AC1BBB2716F9532D00E3A3BF /* Top_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Top_Bg.png; sourceTree = "<group>"; };
+		AC1BBB3216F9935700E3A3BF /* NearUsersGridStyleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearUsersGridStyleTableView.h; sourceTree = "<group>"; };
+		AC1BBB3916FA981400E3A3BF /* NearUserListStyleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearUserListStyleTableView.h; sourceTree = "<group>"; };
+		AC1BBB3A16FA981400E3A3BF /* NearUserListStyleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearUserListStyleTableView.m; sourceTree = "<group>"; };
+		AC1BBB3C16FA994F00E3A3BF /* NearUsersGridStyleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearUsersGridStyleTableView.m; sourceTree = "<group>"; };
+		AC20B8EB16F8021600B20359 /* NearUsersTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearUsersTopView.h; sourceTree = "<group>"; };
+		AC20B8EC16F8021600B20359 /* NearUsersTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearUsersTopView.m; sourceTree = "<group>"; };
+		AC20B8ED16F8021600B20359 /* NearUsersTopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NearUsersTopView.xib; sourceTree = "<group>"; };
 		ACF3CBB116F2AF8100763DD7 /* NewTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF3CBB516F2AF8100763DD7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACF3CBB716F2AF8100763DD7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -62,6 +77,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC1BBB2B16F956B100E3A3BF /* RankList */ = {
+			isa = PBXGroup;
+			children = (
+				ACF3CBFC16F2B28A00763DD7 /* NearUsersTableViewCell.h */,
+				ACF3CBFD16F2B28A00763DD7 /* NearUsersTableViewCell.m */,
+				ACF3CBFE16F2B28A00763DD7 /* NearUsersTableViewCell.xib */,
+			);
+			name = RankList;
+			sourceTree = "<group>";
+		};
+		AC1BBB2C16F956C300E3A3BF /* NearUsersList */ = {
+			isa = PBXGroup;
+			children = (
+				AC20B8EB16F8021600B20359 /* NearUsersTopView.h */,
+				AC20B8EC16F8021600B20359 /* NearUsersTopView.m */,
+				AC20B8ED16F8021600B20359 /* NearUsersTopView.xib */,
+				AC1BBB3216F9935700E3A3BF /* NearUsersGridStyleTableView.h */,
+				AC1BBB3C16FA994F00E3A3BF /* NearUsersGridStyleTableView.m */,
+				AC1BBB3916FA981400E3A3BF /* NearUserListStyleTableView.h */,
+				AC1BBB3A16FA981400E3A3BF /* NearUserListStyleTableView.m */,
+			);
+			name = NearUsersList;
+			sourceTree = "<group>";
+		};
 		ACF3CBA616F2AF8100763DD7 = {
 			isa = PBXGroup;
 			children = (
@@ -92,11 +131,12 @@
 		ACF3CBBB16F2AF8100763DD7 /* NewTableView */ = {
 			isa = PBXGroup;
 			children = (
+				AC1BBB2C16F956C300E3A3BF /* NearUsersList */,
+				AC1BBB2B16F956B100E3A3BF /* RankList */,
+				AC1BBB2616F9532D00E3A3BF /* new_back_Btn.png */,
+				AC1BBB2716F9532D00E3A3BF /* Top_Bg.png */,
 				ACF3CC0A16F2C57300763DD7 /* SDWebImage */,
 				ACF3CC0916F2C45A00763DD7 /* images */,
-				ACF3CBFC16F2B28A00763DD7 /* NearUsersTableViewCell.h */,
-				ACF3CBFD16F2B28A00763DD7 /* NearUsersTableViewCell.m */,
-				ACF3CBFE16F2B28A00763DD7 /* NearUsersTableViewCell.xib */,
 				ACF3CBC416F2AF8100763DD7 /* AppDelegate.h */,
 				ACF3CBC516F2AF8100763DD7 /* AppDelegate.m */,
 				ACF3CBC716F2AF8100763DD7 /* ViewController.h */,
@@ -188,6 +228,9 @@
 				ACF3CC0616F2B3E800763DD7 /* Icon.jpg in Resources */,
 				ACF3CC0816F2BF0E00763DD7 /* 4.jpg in Resources */,
 				ACF3CC0B16F2C57300763DD7 /* SDWebImage in Resources */,
+				AC20B8EF16F8021600B20359 /* NearUsersTopView.xib in Resources */,
+				AC1BBB2816F9532D00E3A3BF /* new_back_Btn.png in Resources */,
+				AC1BBB2916F9532D00E3A3BF /* Top_Bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +245,9 @@
 				ACF3CBC616F2AF8100763DD7 /* AppDelegate.m in Sources */,
 				ACF3CBC916F2AF8100763DD7 /* ViewController.m in Sources */,
 				ACF3CBFF16F2B28A00763DD7 /* NearUsersTableViewCell.m in Sources */,
+				AC20B8EE16F8021600B20359 /* NearUsersTopView.m in Sources */,
+				AC1BBB3B16FA981500E3A3BF /* NearUserListStyleTableView.m in Sources */,
+				AC1BBB3D16FA994F00E3A3BF /* NearUsersGridStyleTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +361,7 @@
 				ACF3CBD116F2AF8100763DD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

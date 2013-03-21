@@ -13,8 +13,14 @@
 @end
 
 @implementation NearUsersTableViewCell
-@synthesize image1,image2,image3;
-@synthesize dataCellArray;
+//@synthesize image1,image2,image3;
+//@synthesize dataCellArray;
+
+@synthesize headImage;
+@synthesize titleLabel;
+@synthesize ageLabel;
+@synthesize distanceLabel;
+@synthesize onlineStatus;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

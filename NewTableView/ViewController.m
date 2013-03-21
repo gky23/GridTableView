@@ -8,18 +8,25 @@
 
 #import "ViewController.h"
 #import "NearUsersTableViewCell.h"
-
+#import "NearUsersTopView.h"
+#import "NearUsersGridStyleTableView.h"
+#import "NearUserListStyleTableView.h"
 
 
 
 #define   GridCount 3
+#define TableViewGridStyle 2001
+#define TableViewListStyle 2002
 
 @implementation ViewController
+@synthesize switchButton,contentView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
+     
+        
 
     }
     return self;
@@ -27,7 +34,11 @@
 
 
 -(void)initData{
-    imageDataArray =[[NSMutableArray alloc] init];
+    isGrid =YES;
+
+    imageDataArray =[NSMutableArray arrayWithCapacity:11];
+    cellArray =[NSMutableArray array];
+    
     
     [imageDataArray addObject:@"http://t3.baidu.com/it/u=143905235,3926919405&fm=23&gp=0.jpg"];
     [imageDataArray addObject:@"http://t2.baidu.com/it/u=1911623958,276989452&fm=23&gp=0.jpg"];
@@ -40,11 +51,9 @@
     [imageDataArray addObject:@"http://t10.baidu.com/it/u=4230965145,4102532603&fm=59"];
     [imageDataArray addObject:@"http://t10.baidu.com/it/u=865484007,281730044&fm=59"];
     [imageDataArray addObject:@"http://www.sucai.com/pic/201262/2012621122561.jpg"];
-//    [imageDataArray addObject:@"http://www.sucai.com/pic/201291/2012911621481.jpg"];
+    [imageDataArray addObject:@"http://www.sucai.com/pic/201291/2012911621481.jpg"];
 
-     cellArray =[NSMutableArray array];
     
-    [self handleData];
    }
 
 -(void)handleData{
@@ -85,14 +94,7 @@
                         [imageDataArray removeObjectAtIndex:0];
                     }
 
-                    
-//                    NSString *type =@"";
-//                    if ([type hasPrefix:@"推送"]) {
-//                        
-//                    }
-//                    else if( [type isEqualToString:@"消息"]){
-//                    
-//                    }
+
 
                 }
                
@@ -121,9 +123,9 @@
         
     }
     
-    for (int a=0;a<[cellArray count]; a++) {
-        NSLog(@"array %d ,content: %@",a,[[cellArray objectAtIndex:a] description]);
-    }
+//    for (int a=0;a<[cellArray count]; a++) {
+//        NSLog(@"array %d ,content: %@",a,[[cellArray objectAtIndex:a] description]);
+//    }
 
 }
 
@@ -133,68 +135,226 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+       
     [self initData];
+
+
+    NearUserListStyleTableView *list =[[NearUserListStyleTableView alloc] init];
+//    list.dataArray = [imageDataArray retain];
+    [list.cellArray addObjectsFromArray:imageDataArray];
     
-    gkyTableView =[[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 460) style:UITableViewStylePlain];
-    gkyTableView.delegate=self;
-    gkyTableView.dataSource=self;
-    [self.view addSubview:gkyTableView];
+    NearUsersGridStyleTableView* grid =[[NearUsersGridStyleTableView alloc] init];
+    [self handleData];
+    [grid.cellArray addObjectsFromArray:cellArray];
+    [grid.tableView reloadData];
     
+    [self addChildViewController:grid];
+    [self addChildViewController:list];
     
+//    currentViewController =[UIViewController new];
+  
+    [contentView addSubview:grid.view];
+    currentViewController =[self.childViewControllers objectAtIndex:0];
+
+//    [grid release];
+//    [list release];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
--(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 105;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [cellArray count];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    int row = indexPath.row;
-    static NSString *identifier = @"NearUsersCellIdentifier";
-    
-//    NearUsersTableViewCell *cell = (NearUsersTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-//    if (cell == nil) {
-//        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NearUsersTableViewCell"
-//                                                     owner:nil options:nil];
-//        for (id oneObject in nib) {
-//            if ([oneObject isKindOfClass:[NearUsersTableViewCell class]]) {
-//                cell = (NearUsersTableViewCell *)oneObject;
-//                break;
-//            }
-//        }
-//    }
-    
-    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:identifier];
-    if(cell==nil){
-        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
-    }
+-(IBAction)switchTableVIew:(id)sender{
     
   
-    NSArray *readyArray =[cellArray objectAtIndex:indexPath.row];
     
-    for (int i=0; i<[readyArray count]; i++) {
-        UIButton * button =[[UIButton alloc] init];
-        button.frame=CGRectMake(5+5*i+100*i, 5, 100, 100);
-        
-        NSURL * url =[[NSURL alloc] initWithString:@"http://www.sucai.com/pic/201262/2012621122561.jpg"];
-        NSData* data = [[NSData alloc] initWithContentsOfURL:url];
-        [button setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-//        [button setBackgroundImage:[UIImage imageNamed:@"2.jpg"] forState:UIControlStateNormal];
-        [cell.contentView addSubview:button ];
-        [data release];
-        [url release];
-        [button release];
-    }
-    
-    return cell;
+    UIViewController *oldViewController= currentViewController;
+    NearUserListStyleTableView *listStyle =[self.childViewControllers objectAtIndex:1];
+    NearUsersGridStyleTableView *gridStyle =[self.childViewControllers objectAtIndex:0];
 
+//    if (isGrid) {
+        if (transiting) {
+            return;
+        }
+        transiting = YES;
+    
+    if (isGrid) {
+        [self transitionFromViewController:currentViewController toViewController:listStyle duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            
+        } completion:^(BOOL finished) {
+            currentViewController =listStyle;
+            transiting = NO;
+            isGrid=NO;
+        }];
+
+    }
+    else{
+        [self transitionFromViewController:currentViewController toViewController:gridStyle duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            
+        } completion:^(BOOL finished) {
+            currentViewController =gridStyle;
+            transiting = NO;
+            isGrid=YES;
+        }];
+
+    }
+      
+//    }
+    
+//    else{
+//        if (transiting) {
+//            return;
+//        }
+//        transiting = YES;
+//        [self transitionFromViewController:currentViewController toViewController:gridStyle duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+//            
+//        } completion:^(BOOL finished) {
+//            currentViewController =gridStyle;
+//            transiting = NO;
+//            isGrid=YES;
+//        }];
+//
+//    }
+//    
+ 
+    
+//    if (isGrid) {
+//        
+//        [self transitionFromViewController:currentViewController toViewController:listStyle duration:4 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+//            
+//        }  completion:^(BOOL finished) {
+//            transiting = NO;
+//
+//            if (finished) {
+//                
+//                currentViewController=listStyle;
+////                isGrid =NO;
+//
+//            }else{
+//                currentViewController=oldViewController;
+//
+//            }
+//        }];
+//        
+//    }
+//    else{
+//        
+//        UIViewController *oldViewController= currentViewController;
+//        [self transitionFromViewController:currentViewController toViewController:gridStyle duration:2 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+//            
+//        }  completion:^(BOOL finished) {
+//            transiting = NO;
+//
+//            if (finished) {
+//
+//                currentViewController=gridStyle;
+////                isGrid=YES;
+//            }else{
+//                currentViewController=oldViewController;
+//            }
+//        }];
+//
+//        
+//    }
+    
+//    isGrid=!isGrid;
+    
+    
+    
+    
+    
+    
 }
+
+//-(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (indexPath.row==0) {
+//        return 100;
+//    }
+//    if (indexPath.row==1) {
+//        return 40;
+//    }
+//    return 105;
+////    return 80;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    return [cellArray count]+2;
+//}
+//
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    static NSString *identifier = @"NearUsersCellIdentifier";
+//    
+////    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"NearUsersTableViewCell"owner:self options:nil];
+//    
+//    
+//    NearUsersTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:identifier];
+//    if(!cell){
+//        cell =[[[NearUsersTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+//        
+//        
+////       cell= [[[NSBundle mainBundle] loadNibNamed:@"NearUsersTableViewCell" owner:self options:nil] lastObject];
+//    }
+//    
+////    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//    
+//    
+//    switch (indexPath.row) {
+//        case 0:
+//        {
+//            NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"NearUsersTopView"owner:self options:nil];
+//            UIView * backupSearchView = [[nibView objectAtIndex:0] retain];
+//            
+//            [cell.contentView addSubview:backupSearchView];
+//        }
+//            break;
+//            
+//            case 1:
+//        {
+//            cell.textLabel.text=@"对附近的人说点什么吧";
+//            cell.textLabel.font=[UIFont systemFontOfSize:13];
+//            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//        }
+//            break;
+//            
+//        default:
+//        {
+//            int newIndexRow =indexPath.row-2;
+//            NSArray *readyArray =[cellArray objectAtIndex:newIndexRow];
+//            
+//            for (int i=0; i<[readyArray count]; i++) {
+//                UIButton * button =[[UIButton alloc] init];
+//                button.frame=CGRectMake(5+5*i+100*i, 5, 100, 100);
+//                
+//                NSURL * url =[NSURL URLWithString:@"http://www.sucai.com/pic/201262/2012621122561.jpg"];
+//                NSData* data = [NSData dataWithContentsOfURL:url];
+//                [button setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+//                button.accessibilityValue=@"id1";
+//                [cell.contentView addSubview:button ];
+//                
+//                UIView *topView =[[UIView alloc] initWithFrame:CGRectMake(5+5*i+100*i, 85, 100, 20)];
+//                topView.backgroundColor=[UIColor blackColor];
+//                topView.alpha=0.5;
+//                
+//                UITextField *textField =[[UITextField alloc] initWithFrame:CGRectMake(55, 0, 80, 20)];
+//                
+//                textField.font=[UIFont systemFontOfSize:13];
+//                textField.text=@"1800米";
+//                textField.textColor=[UIColor whiteColor];
+//                [topView addSubview:textField];
+//                [textField release];
+//                
+//                [cell.contentView addSubview:topView];
+//                [topView release];                
+//                [button release];
+//            }
+//        }
+//            break;
+//    }
+//  
+//   
+//    
+//    return cell;
+//
+//}
 
 
 - (void)viewDidUnload
@@ -206,13 +366,10 @@
 - (void)dealloc
 {
     [imageDataArray release];
-    [gkyTableView release];
+//    [gkyTableView release];
     [super dealloc];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
+
 
 @end

@@ -8,10 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController : UIViewController
 {
-    UITableView *gkyTableView;
+//    UITableView *gkyTableView;
     NSMutableArray *imageDataArray;
     NSMutableArray * cellArray;
+    
+    UIButton * switchButton;
+    
+    BOOL  isGrid;
+    
+    UIViewController *currentViewController;
+    
+  IBOutlet  UIView *contentView;
+    
+    BOOL transiting;
+
 }
+
+@property(nonatomic,retain)IBOutlet     UIView *contentView;
+
+@property(nonatomic,retain)IBOutlet   UIButton * switchButton;
+
+-(IBAction)switchTableVIew:(id)sender;
 @end

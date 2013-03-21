@@ -10,17 +10,22 @@
 
 @interface NearUsersTableViewCell : UITableViewCell
 {
-    UIButton *image1;
-    UIButton *image2;
-    UIButton *image3;
-    UIButton *image4;
+    UIImageView *headImage;
+    UILabel *titleLabel;
+    UILabel *ageLabel;
+    UILabel *distanceLabel;
+    UILabel *onlineStatus;
+    UILabel *bottomLabel;
     
     NSMutableArray *dataCellArray;
 }
-@property(nonatomic,retain)IBOutlet  UIButton *image1;
-@property(nonatomic,retain)IBOutlet  UIButton *image2;
-@property(nonatomic,retain)IBOutlet  UIButton *image3;
-@property(nonatomic,retain)IBOutlet  UIButton *image4;
+@property(nonatomic,retain)IBOutlet  UIImageView *headImage;
+@property(nonatomic,retain)IBOutlet  UILabel *titleLabel;
+@property(nonatomic,retain)IBOutlet  UILabel *ageLabel;
+@property(nonatomic,retain)IBOutlet  UILabel *distanceLabel;
+@property(nonatomic,retain)IBOutlet  UILabel *onlineStatus;
+@property(nonatomic,retain)IBOutlet  UILabel *bottomLabel;
+
 
 @property(nonatomic,retain)NSMutableArray *dataCellArray;
 
